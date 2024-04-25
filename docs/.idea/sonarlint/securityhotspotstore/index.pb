@@ -20,3 +20,7 @@ I
 scripts/filterProducts.js,0/d/0d9226d23da50e2458167a22b69f2fb83172a9f1
 ?
 styles/cart.css,4/4/44e7edd24f572bf74353272f2ad302a4739bfc44
+H
+scripts/productDetail.js,9/3/938e3e0498e4d87d381907e03b2463e60ce6493c
+<
+details.html,8/f/8f919d03448a6045c67456790f9c4ac14681a8ea
