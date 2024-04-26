@@ -9,7 +9,7 @@ const createCard = (product) => {
         <span class="product-title">${product.title}</span>
         <span class="product-description">${product.description}</span>
         <div class="product-price-block">
-          <span class="product-price">${product.price}</span>
+          <span class="product-price">&#36;${product.price}</span>
           <span class="product-discount">50% Off</span>
         </div>
         <div class="product-tax-policy">

@@ -14,8 +14,7 @@ const printDetails = (id) => {
 }
 
 const createProductImg = (product) => {
-    const [, ...miniList] =  product.images;
-    const miniImagesHTML = createMiniImages(miniList);
+    const miniImagesHTML = createMiniImages(product.images);
     const bigImageHTML = createBigImage(product.images[0]);
 
     return `<section class="product-images-block">
@@ -27,7 +26,7 @@ const createProductImg = (product) => {
 }
 
 const createMiniImages = (images) => {
-    return images.map(each => `<img class="mini-img" src="${each}" alt="mini" />`).join("");
+    return images.map(each => `<img class="mini-img" src="${each}" alt="mini"/>`).join("");
 }
 
 const createBigImage = (firstImage) => {
@@ -76,7 +75,7 @@ const createCheckout = (product) => {
     <div class="product-checkout-block">
         <div class="checkout-container">
           <span class="checkout-total-label">Total:</span>
-          <h2 id="price" class="checkout-total-price">${product.price}</h2>
+          <h2 id="price" class="checkout-total-price">&#36;${product.price}</h2>
           <p class="checkout-description">
             Incluye impuesto PAIS y percepción AFIP. Podés recuperar AR$
             50711 haciendo la solicitud en AFIP.
@@ -103,19 +102,49 @@ const createCheckout = (product) => {
           </ul>
           <div class="checkout-process">
             <div class="top">
-              <input type="number" min="1" value="1"/>
+              <input type="number" min="1" value="1" max="${product.stock}" id="quantityInput"/>
               <button type="button" class="cart-btn">
                 Añadir al Carrito
               </button>
             </div>
           </div>
         </div>
-      </div>`
+      </div>`;
+
+}
+
+const changeMini = (event) => {
+    const selectedSrc = event.target.src;
+    const bigSelector = document.getElementById("big-img");
+    bigSelector.src = selectedSrc;
 }
 
 printDetails(id);
 
+const productImages = document.querySelector('.product-images');
+productImages.addEventListener('click', (event) => {
+    if (event.target.classList.contains('mini-img')) {
+        changeMini(event);
+    }
+});
+
+const changeSubtotal = (quantity) => {
+    const product = products.find(product => product.id === id);
+    const subtotal = product.price * quantity;
+    const subtotalSelector = document.getElementById('price');
+    subtotalSelector.innerHTML = `&#36;${subtotal}`;
+}
+
+const quantityInput = document.getElementById('quantityInput');
+quantityInput.addEventListener('input', (event) => {
+    const newQuantity = event.target.value;
+    console.log('Nueva cantidad:', newQuantity);
+    changeSubtotal(newQuantity);
+});
+
+
 /*
+
 Experience the power of creativity with the MacBook Pro 13'4.
 Featuring 8GB of RAM and 512GB of storage, this laptop provides
 the performance and storage capacity needed for demanding tasks.
