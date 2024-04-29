@@ -3,14 +3,17 @@ const params = new URLSearchParams(query);
 const id = Number(params.get('id'));
 console.log(id);
 
+let color = '';
+let quantity = 1;
 
 const printDetails = (id) => {
     const product = products.find(product => product.id === id);
     console.log(product);
-    let productsTemplate = "";
+    let productsTemplate;
     productsTemplate = createProductImg(product) + createProductDes(product) + createCheckout(product);
     const details = document.getElementById("details");
     details.innerHTML = productsTemplate;
+    setDefaultColor(product);
 }
 
 const createProductImg = (product) => {
@@ -69,13 +72,12 @@ const createProductDescription = (description) => {
         </div>`;
 }
 
-
 const createCheckout = (product) => {
     return `
     <div class="product-checkout-block">
         <div class="checkout-container">
           <span class="checkout-total-label">Total:</span>
-          <h2 id="price" class="checkout-total-price">&#36;${product.price}</h2>
+          <h2 id="price" class="checkout-total-price">&#36;${product.price * quantity}</h2>
           <p class="checkout-description">
             Incluye impuesto PAIS y percepción AFIP. Podés recuperar AR$
             50711 haciendo la solicitud en AFIP.
@@ -102,7 +104,7 @@ const createCheckout = (product) => {
           </ul>
           <div class="checkout-process">
             <div class="top">
-              <input type="number" min="1" value="1" max="${product.stock}" id="quantityInput"/>
+              <input type="number" min="1" value=${quantity} max="${product.stock}" id="quantityInput"/>
               <button type="button" class="cart-btn">
                 Añadir al Carrito
               </button>
@@ -113,13 +115,20 @@ const createCheckout = (product) => {
 
 }
 
+const setDefaultColor = (product) => {
+    color = product.color[0];
+    const colorSelector = document.getElementById('color');
+    colorSelector.values = color;
+    console.log('default color', colorSelector.values);
+}
+
+printDetails(id);
+
 const changeMini = (event) => {
     const selectedSrc = event.target.src;
     const bigSelector = document.getElementById("big-img");
     bigSelector.src = selectedSrc;
 }
-
-printDetails(id);
 
 const productImages = document.querySelector('.product-images');
 productImages.addEventListener('click', (event) => {
@@ -139,10 +148,52 @@ const quantityInput = document.getElementById('quantityInput');
 quantityInput.addEventListener('input', (event) => {
     const newQuantity = event.target.value;
     console.log('Nueva cantidad:', newQuantity);
+    quantity = newQuantity;
     changeSubtotal(newQuantity);
 });
 
+const colorSelector = document.getElementById('color');
+colorSelector.addEventListener('change', (event) => {
+    color = event.target.value;
+    console.log('change:', color);
+});
 
+const addBtn = document.querySelector('.cart-btn');
+
+addBtn.addEventListener('click', () => saveProduct())
+
+const saveProduct = () => {
+    const product = products.find(product => product.id === id);
+    console.log('selected:', product);
+    console.log('color selected:', color);
+    console.log('quantity selected:', quantity);
+    const selectedProduct = {
+        id: id,
+        title: product.title,
+        price: product.price,
+        image: product.images[0],
+        color,
+        quantity,
+    };
+    console.log(selectedProduct);
+    saveOnLocal(selectedProduct);
+}
+
+
+const saveOnLocal = (item) => {
+    console.log(localStorage.getItem('cart'));
+    if (localStorage.getItem('cart')) {
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        console.log(cart);
+        cart.push(item);
+        /*cart.unshift(item);*/
+        console.log(cart);
+        localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+        const cart = [item]
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
+}
 /*
 
 Experience the power of creativity with the MacBook Pro 13'4.
