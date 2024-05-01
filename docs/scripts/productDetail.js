@@ -148,7 +148,7 @@ const quantityInput = document.getElementById('quantityInput');
 quantityInput.addEventListener('input', (event) => {
     const newQuantity = event.target.value;
     console.log('Nueva cantidad:', newQuantity);
-    quantity = newQuantity;
+    quantity = Number(newQuantity);
     changeSubtotal(newQuantity);
 });
 
@@ -172,6 +172,7 @@ const saveProduct = () => {
         title: product.title,
         price: product.price,
         image: product.images[0],
+        stock: product.stock,
         color,
         quantity,
     };

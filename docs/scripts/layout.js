@@ -1,11 +1,11 @@
 const navSelector = document.getElementById("nav");
 
 const options = [
-    { title: "Oferta$", linkTo: "./outlet.html" },
-    { title: "Como Comprar", linkTo: "./how.html" },
-    { title: "Costos y tarifas", linkTo: "./taxs.html" },
-    { title: "Mis pedidos", linkTo: "./orders.html" },
-    { title: "Garantia", linkTo: "./warranty.html" },
+    { title: "Oferta$", linkTo: "./index.html" },
+    { title: "Como Comprar", linkTo: "./index.html" },
+    { title: "Costos y tarifas", linkTo: "./index.html" },
+    { title: "Mis pedidos", linkTo: "./index.html" },
+    { title: "Garantia", linkTo: "./index.html" },
 ];
 
 

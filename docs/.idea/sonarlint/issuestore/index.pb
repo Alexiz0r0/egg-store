@@ -24,3 +24,7 @@ H
 scripts/productDetail.js,9/3/938e3e0498e4d87d381907e03b2463e60ce6493c
 <
 details.html,8/f/8f919d03448a6045c67456790f9c4ac14681a8ea
+9
+	cart.html,a/1/a1abaaf26816aeb42381aea4d5281e0413a961b5
+?
+scripts/cart.js,f/9/f91df2c8a72edb1c34c8f5de91bf2f3c250dcd65
