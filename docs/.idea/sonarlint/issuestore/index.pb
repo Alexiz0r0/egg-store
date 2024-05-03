@@ -28,3 +28,7 @@ H
 	cart.html,a/1/a1abaaf26816aeb42381aea4d5281e0413a961b5
 ?
 scripts/cart.js,f/9/f91df2c8a72edb1c34c8f5de91bf2f3c250dcd65
+?
+scripts/util.js,8/e/8e41845de4c1dcbffcbecc2b8db60b3ece71f9a3
+>
+scripts/buy.js,2/0/2030db185c85c9b74dc8453248a162abf3e92bae

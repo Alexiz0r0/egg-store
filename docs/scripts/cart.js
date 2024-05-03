@@ -1,12 +1,15 @@
 let cartList = [];
 const getCartList = () => {
+    getBasketNum();
     if (localStorage.getItem('cart')) {
         cartList = JSON.parse(localStorage.getItem('cart'));
         printCart(cartList);
-        printSummary(cartList);
     } else {
         cartList = [];
+        const cartSelector = document.getElementById("cart-items");
+        cartSelector.innerHTML = "Sin productos";
     }
+    printSummary(cartList);
     return cartList;
 }
 
@@ -58,7 +61,7 @@ const createSummary = (list) => {
         Incluye impuesto PAIS y percepción AFIP.
       </p>
       <div class="summary-btn">
-        <button type="button" class="cart-btn">
+        <button type="button" class="cart-btn" id="end-shopping">
           Comprar
         </button>
       </div>

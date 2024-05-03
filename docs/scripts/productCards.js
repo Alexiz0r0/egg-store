@@ -28,6 +28,5 @@ const printCards = (arrayOfProducts, idSelector) => {
     productsSelector.innerHTML = productsTemplate;
 }
 
+getBasketNum();
 printCards(products, "products");
-
-window.printCards = printCards;

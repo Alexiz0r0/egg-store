@@ -14,6 +14,7 @@ const printDetails = (id) => {
     const details = document.getElementById("details");
     details.innerHTML = productsTemplate;
     setDefaultColor(product);
+    getBasketNum();
 }
 
 const createProductImg = (product) => {
@@ -185,15 +186,28 @@ const saveOnLocal = (item) => {
     console.log(localStorage.getItem('cart'));
     if (localStorage.getItem('cart')) {
         let cart = JSON.parse(localStorage.getItem('cart'));
-        console.log(cart);
+
+        const pExist = cart.find(p => p.id === item.id && p.color === item.color);
+
+        if (pExist) {
+            item.quantity += pExist.quantity;
+            cart = cart.filter(p => p.id !== item.id);
+        }
         cart.push(item);
-        /*cart.unshift(item);*/
-        console.log(cart);
+
+        updateBasket(cart);
         localStorage.setItem("cart", JSON.stringify(cart));
     } else {
         const cart = [item]
         localStorage.setItem("cart", JSON.stringify(cart));
+        updateBasket(cart);
     }
+}
+
+const updateBasket = (cart) => {
+    const basket = cart.length;
+    const basketSelector = document.getElementById('basket');
+    basketSelector.innerHTML = `${basket}`;
 }
 /*
 
