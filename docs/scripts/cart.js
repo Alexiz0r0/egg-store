@@ -28,7 +28,7 @@ const createCart = (item) => {
     
       <div class="item-img">
           <div class="circular--portrait"> 
-              <img src="${item.image}" /> 
+              <img src="${item.image}" alt="${item.title}" /> 
           </div>
       </div>
       <div class="item-info">

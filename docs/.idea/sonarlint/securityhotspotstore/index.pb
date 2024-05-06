@@ -32,3 +32,9 @@ H
 scripts/util.js,8/e/8e41845de4c1dcbffcbecc2b8db60b3ece71f9a3
 >
 scripts/buy.js,2/0/2030db185c85c9b74dc8453248a162abf3e92bae
+G
+scripts/favoriteList.js,f/d/fd3e064f8037b74cd74115b74a5f01bb8cb7666f
+=
+favorite.html,5/3/5358aed5ca045dae15d25d9027ca3b6b2a230e73
+C
+styles/favorite.css,b/7/b79cca6994755506cb5dd62554ee4a54587fd2f2

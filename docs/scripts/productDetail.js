@@ -15,6 +15,19 @@ const printDetails = (id) => {
     details.innerHTML = productsTemplate;
     setDefaultColor(product);
     getBasketNum();
+    applyFavoriteClass();
+}
+
+const applyFavoriteClass = () => {
+    const product = products.find(product => product.id === id);
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const pExist = favorites.find(p => p.id === product.id);
+    const heartSelector = document.getElementById('fa-heart');
+    if (pExist) {
+        heartSelector.classList.add('active');
+    } else {
+        heartSelector.classList.remove('active');
+    }
 }
 
 const createProductImg = (product) => {
@@ -34,7 +47,16 @@ const createMiniImages = (images) => {
 }
 
 const createBigImage = (firstImage) => {
-    return `<img class="big-img" id="big-img" src="${firstImage}" alt="MacBook Pro 13'4" />`;
+    return `
+      <div class="product-box">
+        <img class="big-img" id="big-img" src="${firstImage}" alt="MacBook Pro 13'4" />
+        <div class="fav-btn">
+          <span class="favme" id="fa-heart">
+            <i class="fa-solid fa-heart"></i>
+          </span>
+        </div>
+      </div>
+    `;
 }
 
 const createProductDes = (product) => {
@@ -219,4 +241,25 @@ sophistication. The high-resolution Retina display brings your
 visuals to life, whether you're editing photos, creating videos,
 or simply browsing the web. With the latest technology and a
 lightweight build, the MacBook Pro 13'4 is the perfect companion
-for professionals and creative individuals alike.*/
+for professionals and creative individuals alike.*
+ */
+
+const heartSelector = document.getElementById('fa-heart');
+
+heartSelector.addEventListener('click', () => {
+    heartSelector.classList.toggle('active');
+    addToFavorites();
+});
+
+const addToFavorites = () => {
+    const product = products.find(product => product.id === id);
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const pExist = favorites.find(p => p.id === product.id);
+    if (pExist) {
+        favorites = favorites.filter(p => p.id!== product.id);
+    } else {
+        favorites.push(product);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+

@@ -28,12 +28,12 @@
 .mini-img {
   width: 40px;
   height: 40px;
-  object-fit: cover;
+  object-fit: contain;
 }
 .big-img {
   width: 280px;
   height: 280px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* DESCRIPTION */
