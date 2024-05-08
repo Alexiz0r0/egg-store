@@ -14,7 +14,9 @@ const printDetails = (id) => {
     const details = document.getElementById("details");
     details.innerHTML = productsTemplate;
     setDefaultColor(product);
-    getBasketNum();
+    if(isLoggedIn()) {
+        getBasketNum();
+    }
     applyFavoriteClass();
 }
 
@@ -227,9 +229,11 @@ const saveOnLocal = (item) => {
 }
 
 const updateBasket = (cart) => {
-    const basket = cart.length;
-    const basketSelector = document.getElementById('basket');
-    basketSelector.innerHTML = `${basket}`;
+    if(isLoggedIn()) {
+        const basket = cart.length;
+        const basketSelector = document.getElementById('basket');
+        basketSelector.innerHTML = `${basket}`;
+    }
 }
 /*
 

@@ -34,4 +34,12 @@ const printContainer = () => {
     getFavoriteList(favorites);
 }
 
+const printBasket = () => {
+    if (isLoggedIn()) {
+        getBasketNum();
+    }
+}
+
+printBasket();
+
 printContainer();

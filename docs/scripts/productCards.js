@@ -1,4 +1,3 @@
-
 const printCards = (arrayOfProducts, idSelector) => {
     let productsTemplate = "";
     for (const element of arrayOfProducts) {
@@ -7,7 +6,12 @@ const printCards = (arrayOfProducts, idSelector) => {
     const productsSelector = document.getElementById(idSelector);
     productsSelector.innerHTML = productsTemplate;
 }
+const printBasket = () => {
+    if (isLoggedIn()) {
+        getBasketNum();
+    }
+}
 
-getBasketNum();
+printBasket();
 printCards(products, "products");
 

@@ -38,3 +38,5 @@ G
 favorite.html,5/3/5358aed5ca045dae15d25d9027ca3b6b2a230e73
 C
 styles/favorite.css,b/7/b79cca6994755506cb5dd62554ee4a54587fd2f2
+D
+scripts/socialNav.js,1/3/13bcfae3f9b48ecd5b71c656884e8228b8ba08ff
