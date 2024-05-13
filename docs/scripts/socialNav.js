@@ -17,8 +17,5 @@ const social4 = new Social("user-logged", "login-ico", "#", "fa-solid fa-user-ch
 const social5 = new Social("cart", "cart-img", "./cart.html", "fa-solid fa-cart-shopping", "_self", 5, "nav-cart");
 const social6 = new Social("heart", "heart-ico", "./favorite.html", "fa-solid fa-heart", "_self", 6, "");
 
-const login = [social1, social2, social3];
-const logged = [social1, social2, social5, social6, social4];
-
-window.login = login;
-window.logged = logged;
+export const login = [social1, social2, social3];
+export const logged = [social1, social2, social5, social6, social4];

@@ -1,3 +1,6 @@
+import {products} from "./products.js";
+import {printCards} from "./productCards.js";
+
 const searchSelector = document.getElementById("search");
 let word = '';
 
@@ -26,4 +29,3 @@ const generateList = (txt) => {
         printCards(filteredProducts, "products");
     }
 }
-

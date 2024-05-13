@@ -1,3 +1,5 @@
+import {createCard, getBasketNum, isLoggedIn} from "./util.js";
+
 const getFavoriteList = (favorites) => {
     print(favorites, 'favorite-items');
 }

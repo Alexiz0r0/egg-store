@@ -11,7 +11,7 @@
 </li>
 */
 
-const getBasketNum = () => {
+export const getBasketNum = () => {
     let basket = 0;
     const cartImg = document.getElementById("cart-img");
     const basketSpan = document.createElement("span");
@@ -32,9 +32,7 @@ const getBasketNum = () => {
     basketSelector.innerHTML = `${basket}`;
 }
 
-window.getBasketNum = getBasketNum;
-
-const createCard = (product) => {
+export const createCard = (product) => {
     return `<a class="product-card" href="./details.html?id=${product.id}">
       <img
           class="product-img"
@@ -55,9 +53,7 @@ const createCard = (product) => {
     </a>`;
 }
 
-window.createCard = createCard;
-
-const createSocial = (list) => {
+export const createSocial = (list) => {
     return `
     <li id="${list.name}" class="header-li">
       <a class="icon-a" href="${list.url}" id="${list.nameID}" target="${list.target}">
@@ -68,14 +64,10 @@ const createSocial = (list) => {
     </li> `;
 }
 
-window.createSocial = createSocial;
-
-const isLoggedIn = () => {
+export const isLoggedIn = () => {
     const token = localStorage.getItem('token');
     return !!token
 }
-
-window.isLoggedIn = isLoggedIn;
 
 
 /*

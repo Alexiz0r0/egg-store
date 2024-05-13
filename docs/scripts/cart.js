@@ -1,3 +1,5 @@
+import {getBasketNum} from "./util.js";
+
 let cartList = [];
 const getCartList = () => {
     getBasketNum();

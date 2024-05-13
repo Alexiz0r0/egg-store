@@ -1,4 +1,7 @@
-const printCards = (arrayOfProducts, idSelector) => {
+import {products} from "./products.js";
+import {createCard, getBasketNum, isLoggedIn} from "./util.js";
+
+export const printCards = (arrayOfProducts, idSelector) => {
     let productsTemplate = "";
     for (const element of arrayOfProducts) {
         productsTemplate = productsTemplate + createCard(element);

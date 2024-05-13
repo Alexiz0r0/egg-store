@@ -1,3 +1,6 @@
+import {createSocial, getBasketNum, isLoggedIn} from "./util.js";
+import {logged, login} from "./socialNav.js";
+
 const navSelector = document.getElementById("nav");
 
 const options = [

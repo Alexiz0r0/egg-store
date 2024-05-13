@@ -1,3 +1,6 @@
+import {products} from "./products.js";
+import {getBasketNum, isLoggedIn} from "./util.js";
+
 const query = location.search;
 const params = new URLSearchParams(query);
 const id = Number(params.get('id'));
