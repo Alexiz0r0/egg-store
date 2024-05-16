@@ -1,0 +1,63 @@
+{
+  "header": [
+    {
+      "title": "Oferta$",
+      "linkTo": "./index.html"
+    },
+    {
+      "title": "Como Comprar",
+      "linkTo": "./index.html"
+    },
+    {
+      "title": "Costos y tarifas",
+      "linkTo": "./index.html"
+    },
+    {
+      "title": "Mis pedidos",
+      "linkTo": "./index.html"
+    },
+    {
+      "title": "Garantia",
+      "linkTo": "./index.html"
+    }
+  ],
+  "footer": [
+    {
+      "title": "Ofertas",
+      "opts": [
+        "Laptops",
+        "Audio",
+        "Auriculares"
+      ]
+    },
+    {
+      "title": "Como Comprar",
+      "opts": [
+        "Formas de pago",
+        "Envios",
+        "Devoluciones"
+      ]
+    },
+    {
+      "title": "Costos y tarifas",
+      "opts": [
+        "Impuestos",
+        "a"
+      ]
+    },
+    {
+      "title": "Mis pedidos",
+      "opts": [
+        "3",
+        "b"
+      ]
+    },
+    {
+      "title": "Garantia",
+      "opts": [
+        "r",
+        "g"
+      ]
+    }
+  ]
+}

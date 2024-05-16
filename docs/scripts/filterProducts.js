@@ -1,5 +1,15 @@
-import {products} from "./products.js";
+import {productsPromise} from "./products.js";
 import {printCards} from "./productCards.js";
+
+let products = [];
+document.addEventListener("DOMContentLoaded", () => {
+    productsPromise().then(
+        (res) => {
+            products = [...res];
+        }
+    ).catch(console.error);
+});
+
 
 const searchSelector = document.getElementById("search");
 let word = '';
@@ -17,14 +27,11 @@ const captureText = (event) => {
 
 searchSelector.addEventListener("keydown", event => captureText(event));
 
-const list = [...products];
-
 const generateList = (txt) => {
-    console.log(txt);
     if (txt.length === 0) {
         printCards(products, "products");
     } else {
-        const filteredProducts = list.filter(product => product.title.toLowerCase().includes(txt.toLowerCase()));
+        const filteredProducts = products.filter(product => product.title.toLowerCase().includes(txt.toLowerCase()));
 
         printCards(filteredProducts, "products");
     }

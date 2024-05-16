@@ -40,3 +40,7 @@ C
 styles/favorite.css,b/7/b79cca6994755506cb5dd62554ee4a54587fd2f2
 D
 scripts/socialNav.js,1/3/13bcfae3f9b48ecd5b71c656884e8228b8ba08ff
+A
+json/options.json,f/b/fbc61b528595f8dd4a6066afe8650acef84271d3
+B
+json/products.json,6/0/60981bb44b60b818c0233050894768a94a5c131b

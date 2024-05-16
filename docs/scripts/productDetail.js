@@ -1,5 +1,17 @@
-import {products} from "./products.js";
-import {getBasketNum, isLoggedIn} from "./util.js";
+import {productsPromise} from "./products.js";
+import {getBasketNum, isLoggedIn, showToastAlert} from "./util.js";
+
+let products = [];
+document.addEventListener("DOMContentLoaded", () => {
+    productsPromise().then(
+        (res) => {
+            products = [...res];
+            printDetails(id);
+            addEventListeners();
+        }
+    ).catch(console.error);
+});
+
 
 const query = location.search;
 const params = new URLSearchParams(query);
@@ -11,13 +23,12 @@ let quantity = 1;
 
 const printDetails = (id) => {
     const product = products.find(product => product.id === id);
-    console.log(product);
     let productsTemplate;
     productsTemplate = createProductImg(product) + createProductDes(product) + createCheckout(product);
     const details = document.getElementById("details");
     details.innerHTML = productsTemplate;
     setDefaultColor(product);
-    if(isLoggedIn()) {
+    if (isLoggedIn()) {
         getBasketNum();
     }
     applyFavoriteClass();
@@ -147,10 +158,42 @@ const setDefaultColor = (product) => {
     color = product.color[0];
     const colorSelector = document.getElementById('color');
     colorSelector.values = color;
-    console.log('default color', colorSelector.values);
 }
 
-printDetails(id);
+const addEventListeners = () => {
+    const productImages = document.querySelector('.product-images');
+
+    productImages.addEventListener('click', (event) => {
+        if (event.target.classList.contains('mini-img')) {
+            changeMini(event);
+        }
+    });
+
+    const quantityInput = document.getElementById('quantityInput');
+
+    quantityInput.addEventListener('input', (event) => {
+        const newQuantity = event.target.value;
+
+        quantity = Number(newQuantity);
+        changeSubtotal(newQuantity);
+    });
+
+    const colorSelector = document.getElementById('color');
+
+    colorSelector.addEventListener('change', (event) => {
+        color = event.target.value;
+
+    });
+
+    const addBtn = document.querySelector('.cart-btn');
+    addBtn.addEventListener('click', () => saveProduct());
+    const heartSelector = document.getElementById('fa-heart');
+
+    heartSelector.addEventListener('click', () => {
+        heartSelector.classList.toggle('active');
+        addToFavorites();
+    });
+};
 
 const changeMini = (event) => {
     const selectedSrc = event.target.src;
@@ -158,12 +201,6 @@ const changeMini = (event) => {
     bigSelector.src = selectedSrc;
 }
 
-const productImages = document.querySelector('.product-images');
-productImages.addEventListener('click', (event) => {
-    if (event.target.classList.contains('mini-img')) {
-        changeMini(event);
-    }
-});
 
 const changeSubtotal = (quantity) => {
     const product = products.find(product => product.id === id);
@@ -172,29 +209,10 @@ const changeSubtotal = (quantity) => {
     subtotalSelector.innerHTML = `&#36;${subtotal}`;
 }
 
-const quantityInput = document.getElementById('quantityInput');
-quantityInput.addEventListener('input', (event) => {
-    const newQuantity = event.target.value;
-    console.log('Nueva cantidad:', newQuantity);
-    quantity = Number(newQuantity);
-    changeSubtotal(newQuantity);
-});
-
-const colorSelector = document.getElementById('color');
-colorSelector.addEventListener('change', (event) => {
-    color = event.target.value;
-    console.log('change:', color);
-});
-
-const addBtn = document.querySelector('.cart-btn');
-
-addBtn.addEventListener('click', () => saveProduct())
 
 const saveProduct = () => {
     const product = products.find(product => product.id === id);
-    console.log('selected:', product);
-    console.log('color selected:', color);
-    console.log('quantity selected:', quantity);
+
     const selectedProduct = {
         id: id,
         title: product.title,
@@ -204,40 +222,98 @@ const saveProduct = () => {
         color,
         quantity,
     };
-    console.log(selectedProduct);
+
     saveOnLocal(selectedProduct);
 }
 
 
 const saveOnLocal = (item) => {
-    console.log(localStorage.getItem('cart'));
+
     if (localStorage.getItem('cart')) {
         let cart = JSON.parse(localStorage.getItem('cart'));
 
         const pExist = cart.find(p => p.id === item.id && p.color === item.color);
-
+        console.log(pExist);
         if (pExist) {
-            item.quantity += pExist.quantity;
-            cart = cart.filter(p => p.id !== item.id);
+            Swal.fire({
+                title: "El producto ya se encuentra en el carrito",
+                showDenyButton: true,
+                confirmButtonText: "Añadir el producto",
+                denyButtonText: `No añadir el producto`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    item.quantity += pExist.quantity;
+                    cart = cart.filter(p => !(p.id === item.id && p.color === item.color));
+                    console.log(cart);
+                    cart.push(item);
+                    updateBasket(cart);
+                    setItemsOnLocalStorage("cart", cart);
+                    /*localStorage.setItem("cart", JSON.stringify(cart));*/
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                    showToastAlert({
+                        position: "bottom-end",
+                        icon: "info",
+                        title: "El producto No se agregó al carrito.",
+                        timer: 2000
+                    })
+                }
+            });
+        } else {
+            console.log(cart);
+            cart.push(item);
+            updateBasket(cart);
+            setItemsOnLocalStorage("cart", cart);
+            /*localStorage.setItem("cart", JSON.stringify(cart));*/
         }
-        cart.push(item);
-
-        updateBasket(cart);
-        localStorage.setItem("cart", JSON.stringify(cart));
     } else {
         const cart = [item]
-        localStorage.setItem("cart", JSON.stringify(cart));
+        setItemsOnLocalStorage("cart", cart);
+        /*localStorage.setItem("cart", JSON.stringify(cart));*/
         updateBasket(cart);
     }
 }
 
+const setItemsOnLocalStorage = (key, items) => {
+    localStorage.setItem(key, JSON.stringify(items));
+    showToastAlert({
+        position: "top-end",
+        icon: "success",
+        title: "El producto se agregó correctamente al carrito.",
+        timer: 3000
+    })
+    /*Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "El producto se agregó correctamente al carrito.",
+        showConfirmButton: false,
+        timerProgressBar: true,
+        timer: 3000
+    });*/
+}
+
+
 const updateBasket = (cart) => {
-    if(isLoggedIn()) {
+    if (isLoggedIn()) {
         const basket = cart.length;
         const basketSelector = document.getElementById('basket');
         basketSelector.innerHTML = `${basket}`;
     }
 }
+
+const addToFavorites = () => {
+    const product = products.find(product => product.id === id);
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const pExist = favorites.find(p => p.id === product.id);
+    if (pExist) {
+        favorites = favorites.filter(p => p.id !== product.id);
+    } else {
+        favorites.push(product);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
 /*
 
 Experience the power of creativity with the MacBook Pro 13'4.
@@ -250,23 +326,3 @@ or simply browsing the web. With the latest technology and a
 lightweight build, the MacBook Pro 13'4 is the perfect companion
 for professionals and creative individuals alike.*
  */
-
-const heartSelector = document.getElementById('fa-heart');
-
-heartSelector.addEventListener('click', () => {
-    heartSelector.classList.toggle('active');
-    addToFavorites();
-});
-
-const addToFavorites = () => {
-    const product = products.find(product => product.id === id);
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    const pExist = favorites.find(p => p.id === product.id);
-    if (pExist) {
-        favorites = favorites.filter(p => p.id!== product.id);
-    } else {
-        favorites.push(product);
-    }
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-}
-

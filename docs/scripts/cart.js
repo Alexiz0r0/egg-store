@@ -1,4 +1,4 @@
-import {getBasketNum} from "./util.js";
+import {getBasketNum, showToastAlert} from "./util.js";
 
 let cartList = [];
 const getCartList = () => {
@@ -117,4 +117,10 @@ const saveOnLocal = (items) => {
     console.log(newTotal);
     const subtotalSelector = document.getElementById('total-price');
     subtotalSelector.innerHTML = `&#36;${newTotal}`;
+    showToastAlert({
+        position: "top-start",
+        icon: "success",
+        title: `Subtotal actualizado: ${newTotal}.`,
+        timer: 2000
+    })
 }

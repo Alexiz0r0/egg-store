@@ -70,6 +70,19 @@ export const isLoggedIn = () => {
 }
 
 
+export const showToastAlert = ({position, icon, title, timer}) => {
+    Swal.fire({
+        toast: true,
+        position,
+        icon,
+        title,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        timer
+    });
+}
+
+
 /*
 <li id="facebook" className="header-li">
     <a className="icon-a" href="https://facebook.com" target="_blank">

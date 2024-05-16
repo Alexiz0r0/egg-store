@@ -1,62 +1,85 @@
 import {createSocial, getBasketNum, isLoggedIn} from "./util.js";
 import {logged, login} from "./socialNav.js";
 
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const getOptions = async () => {
+        try {
+            const response = await fetch("./json/options.json");
+            const data = await response.json();
+            const {header, footer} = data
+            renderFooters(footer);
+            renderHeader(header);
+        } catch (error) {
+            console.warn(error);
+        }
+    }
+    getOptions();
+});
+
 const navSelector = document.getElementById("nav");
 
-const options = [
+/*const options = [
     {title: "Oferta$", linkTo: "./index.html"},
     {title: "Como Comprar", linkTo: "./index.html"},
     {title: "Costos y tarifas", linkTo: "./index.html"},
     {title: "Mis pedidos", linkTo: "./index.html"},
     {title: "Garantia", linkTo: "./index.html"},
-];
+];*/
 
-
-for (let option of options) {
-    const anchor = document.createElement("a");
-    anchor.className = "nav-a"
-    anchor.textContent = option.title
-    anchor.href = option.linkTo
-    navSelector.appendChild(anchor)
+const renderHeader = (options) => {
+    for (let option of options) {
+        const anchor = document.createElement("a");
+        anchor.className = "nav-a"
+        anchor.textContent = option.title
+        anchor.href = option.linkTo
+        navSelector.appendChild(anchor)
+    }
 }
-
 
 const footerSelector = document.querySelector("#footer");
 
-const optionsFooter = [
+/*const optionsFooter = [
     {title: "Ofertas", opts: ["Laptops", "Audio", "Auriculares"]},
     {title: "Como Comprar", opts: ["Formas de pago", "Envios", "Devoluciones"]},
     {title: "Costos y tarifas", opts: ["Impuestos", "a"]},
     {title: "Mis pedidos", opts: ["3", "b"]},
     {title: "Garantia", opts: ["r", "g"]},
-];
+];*/
 
-for (let col of optionsFooter) {
-    const columnUl = document.createElement("ul");
-    columnUl.className = "footer-ul";
 
-    const mainItem = document.createElement("li");
-    mainItem.className = "footer-main-item";
-    const mainAnchor = document.createElement("a");
-    mainAnchor.className = "footer-a";
-    mainAnchor.textContent = col.title;
+const renderFooters = (optionsFooter) => {
 
-    mainItem.appendChild(mainAnchor);
-    columnUl.appendChild(mainItem);
+    for (let col of optionsFooter) {
+        const columnUl = document.createElement("ul");
+        columnUl.className = "footer-ul";
 
-    for (let elem of col.opts) {
-        const listItem = document.createElement("li");
-        listItem.className = "footer-li";
-        const optionAnchor = document.createElement("a");
-        optionAnchor.className = "footer-a";
-        optionAnchor.textContent = elem;
+        const mainItem = document.createElement("li");
+        mainItem.className = "footer-main-item";
+        const mainAnchor = document.createElement("a");
+        mainAnchor.className = "footer-a";
+        mainAnchor.textContent = col.title;
 
-        listItem.appendChild(optionAnchor);
-        columnUl.appendChild(listItem);
+        mainItem.appendChild(mainAnchor);
+        columnUl.appendChild(mainItem);
+
+        for (let elem of col.opts) {
+            const listItem = document.createElement("li");
+            listItem.className = "footer-li";
+            const optionAnchor = document.createElement("a");
+            optionAnchor.className = "footer-a";
+            optionAnchor.textContent = elem;
+
+            listItem.appendChild(optionAnchor);
+            columnUl.appendChild(listItem);
+        }
+
+        footerSelector.appendChild(columnUl);
     }
-
-    footerSelector.appendChild(columnUl);
 }
+
 
 const printSocial = () => {
     let socialTemplate = "";
@@ -90,5 +113,3 @@ const changeSocialNav = () => {
 }
 
 printSocial();
-
-
