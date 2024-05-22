@@ -12,8 +12,8 @@ class Social {
 
 const social1 = new Social("facebook", "fb-ico", "https://www.facebook.com/", "fa-brands fa-facebook", "_blank", 1, "");
 const social2 = new Social("instagram", "ist-ico", "https://www.instagram.com/", "fa-brands fa-instagram", "_blank", 2, "");
-const social3 = new Social("user-login", "login-ico", "#", "fa-solid fa-user-xmark", "_self", 3, "");
-const social4 = new Social("user-logged", "login-ico", "#", "fa-solid fa-user-check", "_self", 4, "");
+const social3 = new Social("user-login", "login-ico", "./login.html", "fa-solid fa-user-xmark", "_self", 3, "");
+const social4 = new Social("user-logged", "login-ico", "./login.html", "fa-solid fa-user-check", "_self", 4, "");
 const social5 = new Social("cart", "cart-img", "./cart.html", "fa-solid fa-cart-shopping", "_self", 5, "nav-cart");
 const social6 = new Social("heart", "heart-ico", "./favorite.html", "fa-solid fa-heart", "_self", 6, "");
 

@@ -82,6 +82,19 @@ export const showToastAlert = ({position, icon, title, timer}) => {
     });
 }
 
+export const isEmail = (email) => {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+}
+
+export const getUsers = () => JSON.parse(localStorage.getItem("users")) ?? [];
+
+export const navigateToLoginPage = () => {
+    if (!isLoggedIn()) {
+        window.location.href = "./login.html";
+        return true;
+    }
+    return false;
+}
 
 /*
 <li id="facebook" className="header-li">

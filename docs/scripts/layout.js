@@ -106,7 +106,7 @@ const changeSocialNav = () => {
         localStorage.removeItem("token");
         printSocial();
     } else {
-        localStorage.setItem("token", "ABCDEF123");
+        window.location.href = "./login.html";
         printSocial();
         getBasketNum();
     }

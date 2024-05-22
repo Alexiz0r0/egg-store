@@ -44,3 +44,16 @@ A
 json/options.json,f/b/fbc61b528595f8dd4a6066afe8650acef84271d3
 B
 json/products.json,6/0/60981bb44b60b818c0233050894768a94a5c131b
+:
+
+login.html,8/0/8069a16aaa89aa2f982404b0d2c7244c6e283111
+@
+styles/login.css,4/b/4bd03608968e20848baaa6d7993d22314bcb78b0
+=
+register.html,1/d/1db6aff286d11412de8d4cdf946844a2dcc13e1b
+H
+scripts/formValidator.js,a/7/a7a83d1f85842972c62f96a9bb7f575830709f89
+@
+scripts/login.js,b/c/bc48734a7df96c5638f101b3d4dbbedb0bb0b587
+C
+scripts/register.js,8/6/866afb726787e55b9b3bd39957dd004901230e13

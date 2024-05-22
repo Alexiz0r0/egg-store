@@ -1,5 +1,5 @@
 import {productsPromise} from "./products.js";
-import {getBasketNum, isLoggedIn, showToastAlert} from "./util.js";
+import {getBasketNum, isLoggedIn, navigateToLoginPage, showToastAlert} from "./util.js";
 
 let products = [];
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,7 +39,7 @@ const applyFavoriteClass = () => {
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     const pExist = favorites.find(p => p.id === product.id);
     const heartSelector = document.getElementById('fa-heart');
-    if (pExist) {
+    if (pExist && isLoggedIn()) {
         heartSelector.classList.add('active');
     } else {
         heartSelector.classList.remove('active');
@@ -190,7 +190,7 @@ const addEventListeners = () => {
     const heartSelector = document.getElementById('fa-heart');
 
     heartSelector.addEventListener('click', () => {
-        heartSelector.classList.toggle('active');
+
         addToFavorites();
     });
 };
@@ -211,6 +211,9 @@ const changeSubtotal = (quantity) => {
 
 
 const saveProduct = () => {
+    const logged = navigateToLoginPage();
+    if (logged) return;
+
     const product = products.find(product => product.id === id);
 
     const selectedProduct = {
@@ -303,6 +306,10 @@ const updateBasket = (cart) => {
 }
 
 const addToFavorites = () => {
+    const logged = navigateToLoginPage();
+    if (logged) return;
+    const heartSelector = document.getElementById('fa-heart');
+    heartSelector.classList.toggle('active');
     const product = products.find(product => product.id === id);
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     const pExist = favorites.find(p => p.id === product.id);
